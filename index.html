@@ -7,21 +7,27 @@
   <meta name="description" content="Jednostronicowa strona firmowa z sekcjami: O nas, Usługi, Kontakt, Mapa dojazdu, Formularz i Galeria." />
   <style>
     :root{
-      --bg:#0f172a;          /* slate-900 */
-      --card:#111827;        /* gray-900 */
-      --muted:#94a3b8;       /* slate-400 */
-      --text:#e5e7eb;        /* gray-200 */
-      --brand:#38bdf8;       /* sky-400 */
-      --brand-2:#22d3ee;     /* cyan-400 */
-      --accent:#a78bfa;      /* violet-400 */
-      --ok:#34d399;          /* emerald-400 */
-      --danger:#f43f5e;      /* rose-500 */
+      --bg:#0f172a;          /* tło strony (jednolite) */          /* ZMIANA */
+      --card:#111827;        /* bazowy kolor kart */
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --brand:#38bdf8;
+      --brand-2:#22d3ee;
+      --accent:#a78bfa;
+      --ok:#34d399;
+      --danger:#f43f5e;
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.35);
       --max:1100px;
     }
+
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#0b1224 0%, #0f172a 100%);color:var(--text)}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: var(--bg);   /* jednolite tło */                 /* ZMIANA */
+      color:var(--text)
+    }
     a{color:var(--brand);text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
@@ -36,9 +42,18 @@
     .nav__links a:hover{background:rgba(148,163,184,.08);opacity:1}
 
     /* SECTIONS */
-    section{padding:72px 18px}
+    section{padding:72px 18px} /* sekcje bez tła, tylko odstępy */ /* ZMIANA */
     .container{max-width:var(--max);margin:0 auto}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(148,163,184,.12);box-shadow:var(--shadow);border-radius:var(--radius);padding:28px}
+
+    /* Karta – domyślnie neutralna, z obramowaniem i cieniem */
+    .card{
+      background: var(--card);                                      /* ZMIANA */
+      border:1px solid rgba(148,163,184,.12);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      padding:28px
+    }
+
     h1,h2{margin:0 0 12px}
     h1{font-size:clamp(28px,4vw,44px)}
     h2{font-size:clamp(22px,3.2vw,32px)}
@@ -95,6 +110,17 @@
 
     /* FOOTER */
     footer{padding:24px 18px;border-top:1px solid rgba(148,163,184,.12);text-align:center;color:var(--muted)}
+
+    /* =====================================================
+       DODANE: RÓŻNE KOLORY TYLKO DLA .card W KAŻDEJ SEKCJI
+       (tło strony pozostaje jednolite – var(--bg))
+       ===================================================== */
+    .start .card     { background:#0b1224; }   /* główna karta hero – ciemny granat */
+    .o-nas .card     { background:#1e293b; }   /* O nas – ciemny szaroniebieski */
+    .uslugi .card    { background:#312e81; }   /* Usługi – ciemny fiolet */
+    .kontakt .card   { background:#134e4a; }   /* Kontakt/Mapa – ciemny turkus */
+    .formularz .card { background:#1e293b; }   /* Formularz – szaroniebieski */
+    .galeria .card   { background:#0b1224; }   /* Galeria – granat */
   </style>
 </head>
 <body>
@@ -118,37 +144,39 @@
   </nav>
 
   <!-- HERO / Start -->
-  <section id="start" class="container">
-    <div class="hero card">
-      <div>
-        <span class="badge">Nowoczesne rozwiązania dla Twojego biznesu</span>
-        <h1>Pemo Strona Sp. z o.o.</h1>
-        <p>Specjalizujemy się w dostarczaniu usług dla małych i średnich przedsiębiorstw – od konsultingu, przez wdrożenia, po wsparcie powdrożeniowe.</p>
-        <div class="cta">
-          <a class="btn btn--primary" href="#formularz">Wyślij zapytanie</a>
-          <a class="btn" href="#uslugi">Zobacz usługi</a>
+  <section id="start" class="start">
+    <div class="container">
+      <div class="hero card">
+        <div>
+          <span class="badge">Nowoczesne rozwiązania dla Twojego biznesu</span>
+          <h1>Pemo Strona Sp. z o.o.</h1>
+          <p>Specjalizujemy się w dostarczaniu usług dla małych i średnich przedsiębiorstw – od konsultingu, przez wdrożenia, po wsparcie powdrożeniowe.</p>
+          <div class="cta">
+            <a class="btn btn--primary" href="#formularz">Wyślij zapytanie</a>
+            <a class="btn" href="#uslugi">Zobacz usługi</a>
+          </div>
         </div>
-      </div>
-      <div>
-        <!-- Proste, losowe logo zastępcze jako SVG -->
-        <svg viewBox="0 0 200 200" role="img" aria-label="Logo firmy" style="width:100%;filter:drop-shadow(0 20px 40px rgba(56,189,248,.25))">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#38bdf8"/>
-              <stop offset="50%" stop-color="#22d3ee"/>
-              <stop offset="100%" stop-color="#a78bfa"/>
-            </linearGradient>
-          </defs>
-          <rect x="10" y="10" width="180" height="180" rx="36" fill="url(#g)"/>
-          <path d="M60 120 L100 50 L140 120 Z" fill="#0b1224" opacity=".9"/>
-          <circle cx="100" cy="130" r="14" fill="#0b1224" opacity=".9"/>
-        </svg>
+        <div>
+          <!-- Proste, losowe logo zastępcze jako SVG -->
+          <svg viewBox="0 0 200 200" role="img" aria-label="Logo firmy" style="width:100%;filter:drop-shadow(0 20px 40px rgba(56,189,248,.25))">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="50%" stop-color="#22d3ee"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="180" height="180" rx="36" fill="url(#g)"/>
+            <path d="M60 120 L100 50 L140 120 Z" fill="#0b1224" opacity=".9"/>
+            <circle cx="100" cy="130" r="14" fill="#0b1224" opacity=".9"/>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- O nas -->
-  <section id="o-nas">
+  <section id="o-nas" class="o-nas">
     <div class="container grid">
       <div class="card">
         <h2>O nas</h2>
@@ -172,7 +200,7 @@
   </section>
 
   <!-- Usługi -->
-  <section id="uslugi">
+  <section id="uslugi" class="uslugi">
     <div class="container">
       <div class="card">
         <h2>Usługi</h2>
@@ -226,7 +254,7 @@
   </section>
 
   <!-- Kontakt -->
-  <section id="kontakt">
+  <section id="kontakt" class="kontakt">
     <div class="container grid grid-2">
       <div class="card">
         <h2>Kontakt</h2>
@@ -250,7 +278,7 @@
   </section>
 
   <!-- Formularz zgłoszeniowy -->
-  <section id="formularz">
+  <section id="formularz" class="formularz">
     <div class="container">
       <div class="card">
         <h2>Formularz zgłoszeniowy</h2>
@@ -261,7 +289,7 @@
               <input id="name" name="name" placeholder="Jan Kowalski" required />
             </div>
             <div>
-              <label for="email">E‑mail</label>
+              <label for="email">E-mail</label>
               <input id="email" name="email" type="email" placeholder="jan@firma.pl" required />
             </div>
           </div>
@@ -298,7 +326,7 @@
   </section>
 
   <!-- Galeria -->
-  <section id="galeria">
+  <section id="galeria" class="galeria">
     <div class="container">
       <div class="card">
         <h2>Galeria</h2>
