@@ -38,8 +38,42 @@
     .logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg at 50% 50%, var(--brand), var(--accent), var(--brand-2), var(--brand));box-shadow:0 6px 18px rgba(56,189,248,.35)}
     .brand{font-weight:700;letter-spacing:.3px}
     .nav__links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
-    .nav__links a{color:var(--text);opacity:.85;padding:8px 12px;border-radius:12px}
-    .nav__links a:hover{background:rgba(148,163,184,.08);opacity:1}
+
+    /* 🔥 NEON hover dla linków w nawigacji (PODMIANA) */
+    .nav__links a{
+      position:relative;
+      color:var(--text);
+      opacity:.85;
+      padding:8px 12px;
+      border-radius:12px;
+      transition: color .2s ease, text-shadow .2s ease, transform .15s ease, opacity .2s ease;
+    }
+    .nav__links a:hover,
+    .nav__links a:focus-visible{
+      opacity:1;
+      color:#e0f2fe; /* jaśniejszy odcień */
+      text-shadow:
+        0 0 4px  rgba(56,189,248,.9),
+        0 0 10px rgba(56,189,248,.8),
+        0 0 18px rgba(34,211,238,.7);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .nav__links a::after{
+      content:"";
+      position:absolute; left:12px; right:12px; bottom:4px; height:2px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-radius:2px;
+      box-shadow: 0 0 8px rgba(56,189,248,.8);
+      opacity:0;
+      transform: scaleX(.5);
+      transform-origin:center;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .nav__links a:hover::after,
+    .nav__links a:focus-visible::after{
+      opacity:1; transform: scaleX(1);
+    }
 
     /* SECTIONS */
     section{padding:72px 18px}
@@ -328,4 +362,3 @@
   </script>
 </body>
 </html>
-
