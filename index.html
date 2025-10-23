@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pemo Strona – Strona Główna</title>
-  <meta name="description" content="Jednostronicowa strona firmowa z sekcjami: O nas, Usługi, Kontakt, Mapa dojazdu i Formularz." />
+  <meta name="description" content="Jednostronicowa strona firmowa z sekcjami: O nas, Usługi, Zaufali nam, Kontakt, Mapa dojazdu i Formularz." />
   <style>
     :root{
       --bg:#0f172a;          /* tło strony (jednolite) */
@@ -39,7 +39,7 @@
     .brand{font-weight:700;letter-spacing:.3px}
     .nav__links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
 
-    /* 🔥 NEON hover dla linków w nawigacji (PODMIANA) */
+    /* NEON hover dla linków w nawigacji */
     .nav__links a{
       position:relative;
       color:var(--text);
@@ -51,7 +51,7 @@
     .nav__links a:hover,
     .nav__links a:focus-visible{
       opacity:1;
-      color:#e0f2fe; /* jaśniejszy odcień */
+      color:#e0f2fe;
       text-shadow:
         0 0 4px  rgba(56,189,248,.9),
         0 0 10px rgba(56,189,248,.8),
@@ -79,7 +79,7 @@
     section{padding:72px 18px}
     .container{max-width:var(--max);margin:0 auto}
 
-    /* Karta – neutralna, z obramowaniem i cieniem */
+    /* Karta */
     .card{
       background: var(--card);
       border:1px solid rgba(148,163,184,.12);
@@ -133,8 +133,35 @@
     .start .card     { background:#0b1224; }
     .o-nas .card     { background:#1e293b; }
     .uslugi .card    { background:#312e81; }
+    .zaufali .card   { background:#0b1224; } /* nowa sekcja */
     .kontakt .card   { background:#134e4a; }
     .formularz .card { background:#1e293b; }
+
+    /* Zaufali nam – mała galeria logotypów */
+    .logos{
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(5,1fr);
+      align-items:center;
+    }
+    @media (max-width:900px){
+      .logos{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:560px){
+      .logos{grid-template-columns:repeat(2,1fr)}
+    }
+    .logo-tile{
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(148,163,184,.12);
+      border-radius:14px;
+      padding:18px;
+      display:flex;align-items:center;justify-content:center;
+      filter:grayscale(1);
+      opacity:.85;
+      transition:filter .2s ease, opacity .2s ease, transform .15s ease;
+    }
+    .logo-tile:hover{filter:none;opacity:1;transform:translateY(-2px)}
+    .logo-tile svg{width:110px;max-width:100%;height:auto}
   </style>
 </head>
 <body>
@@ -149,6 +176,7 @@
         <a href="#start">Start</a>
         <a href="#o-nas">O nas</a>
         <a href="#uslugi">Usługi</a>
+        <a href="#zaufali">Zaufali nam</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#formularz">Formularz</a>
       </div>
@@ -169,7 +197,7 @@
           </div>
         </div>
         <div>
-          <!-- Proste, losowe logo zastępcze jako SVG -->
+          <!-- Proste logo zastępcze jako SVG -->
           <svg viewBox="0 0 200 200" role="img" aria-label="Logo firmy" style="width:100%;filter:drop-shadow(0 20px 40px rgba(56,189,248,.25))">
             <defs>
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
@@ -250,8 +278,57 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 5h8M3 12h18M3 19h8" stroke-width="2" stroke-linecap="round"/></svg>
             <div>
               <h3>Sprzedaż oprogramowania i sprzętu elektronicznego</h3>
-              <p class="hint">Strony, kampanie, treści – full-service.</p>
+              <p class="hint">Dobór, dostawa, konfiguracja.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zaufali nam (NOWA SEKCJA) -->
+  <section id="zaufali" class="zaufali">
+    <div class="container">
+      <div class="card">
+        <h2>Zaufali nam</h2>
+        <p class="hint" style="margin-bottom:14px">Przykładowe logotypy (placeholdery):</p>
+        <div class="logos">
+          <!-- Logo 1 -->
+          <div class="logo-tile" aria-label="Logo A">
+            <svg viewBox="0 0 200 60" role="img" aria-hidden="true">
+              <rect x="5" y="10" width="190" height="40" rx="8" fill="#e5e7eb" opacity=".15"/>
+              <text x="100" y="38" text-anchor="middle" font-size="28" fill="#e5e7eb" opacity=".7" font-family="Arial, Helvetica, sans-serif">ALPHA</text>
+            </svg>
+          </div>
+          <!-- Logo 2 -->
+          <div class="logo-tile" aria-label="Logo B">
+            <svg viewBox="0 0 200 60" role="img" aria-hidden="true">
+              <circle cx="30" cy="30" r="18" fill="#e5e7eb" opacity=".2"/>
+              <text x="110" y="38" text-anchor="middle" font-size="26" fill="#e5e7eb" opacity=".7" font-family="Arial, Helvetica, sans-serif">BETA CORP</text>
+            </svg>
+          </div>
+          <!-- Logo 3 -->
+          <div class="logo-tile" aria-label="Logo C">
+            <svg viewBox="0 0 200 60" role="img" aria-hidden="true">
+              <rect x="12" y="16" width="60" height="28" rx="4" fill="#e5e7eb" opacity=".18"/>
+              <rect x="82" y="16" width="106" height="28" rx="4" fill="#e5e7eb" opacity=".1"/>
+              <text x="135" y="36" text-anchor="middle" font-size="20" fill="#e5e7eb" opacity=".7">CONSULT</text>
+            </svg>
+          </div>
+          <!-- Logo 4 -->
+          <div class="logo-tile" aria-label="Logo D">
+            <svg viewBox="0 0 200 60" role="img" aria-hidden="true">
+              <polygon points="20,40 40,20 60,40" fill="#e5e7eb" opacity=".18"/>
+              <text x="120" y="38" text-anchor="middle" font-size="26" fill="#e5e7eb" opacity=".7">DELTA</text>
+            </svg>
+          </div>
+          <!-- Logo 5 -->
+          <div class="logo-tile" aria-label="Logo E">
+            <svg viewBox="0 0 200 60" role="img" aria-hidden="true">
+              <rect x="10" y="22" width="40" height="16" rx="3" fill="#e5e7eb" opacity=".18"/>
+              <circle cx="70" cy="30" r="8" fill="#e5e7eb" opacity=".15"/>
+              <text x="135" y="38" text-anchor="middle" font-size="24" fill="#e5e7eb" opacity=".7">ECHO LABS</text>
+            </svg>
           </div>
         </div>
       </div>
