@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pemo Strona – Strona Główna</title>
+  <meta name="description" content="Jednostronicowa strona firmowa z sekcjami: O nas, Usługi, Kontakt, Mapa dojazdu, Formularz i Galeria." />
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --card:#111827;        /* gray-900 */
+      --muted:#94a3b8;       /* slate-400 */
+      --text:#e5e7eb;        /* gray-200 */
+      --brand:#38bdf8;       /* sky-400 */
+      --brand-2:#22d3ee;     /* cyan-400 */
+      --accent:#a78bfa;      /* violet-400 */
+      --ok:#34d399;          /* emerald-400 */
+      --danger:#f43f5e;      /* rose-500 */
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --max:1100px;
+    }
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#0b1224 0%, #0f172a 100%);color:var(--text)}
+    a{color:var(--brand);text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:rgba(2,6,23,.6);border-bottom:1px solid rgba(148,163,184,.15)}
+    .nav__inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:18px;padding:14px 18px}
+    .logo-wrap{display:flex;align-items:center;gap:10px}
+    .logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 180deg at 50% 50%, var(--brand), var(--accent), var(--brand-2), var(--brand));box-shadow:0 6px 18px rgba(56,189,248,.35)}
+    .brand{font-weight:700;letter-spacing:.3px}
+    .nav__links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+    .nav__links a{color:var(--text);opacity:.85;padding:8px 12px;border-radius:12px}
+    .nav__links a:hover{background:rgba(148,163,184,.08);opacity:1}
+
+    /* SECTIONS */
+    section{padding:72px 18px}
+    .container{max-width:var(--max);margin:0 auto}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(148,163,184,.12);box-shadow:var(--shadow);border-radius:var(--radius);padding:28px}
+    h1,h2{margin:0 0 12px}
+    h1{font-size:clamp(28px,4vw,44px)}
+    h2{font-size:clamp(22px,3.2vw,32px)}
+    p{color:var(--muted);line-height:1.7}
+
+    /* HERO */
+    .hero{display:grid;gap:22px;grid-template-columns:1.1fr .9fr;align-items:center}
+    .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.12);color:#cffafe;border:1px solid rgba(56,189,248,.35);padding:8px 12px;border-radius:999px;font-size:14px}
+    .hero .cta{display:flex;gap:12px;margin-top:16px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid rgba(148,163,184,.18);background:#0b1224;cursor:pointer;color:var(--text)}
+    .btn--primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#05121a;border:0;font-weight:700}
+    .btn:hover{transform:translateY(-1px)}
+
+    /* GRID helpers */
+    .grid{display:grid;gap:18px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+
+    /* USŁUGI */
+    .service{display:flex;gap:14px;padding:18px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(148,163,184,.12)}
+    .service svg{width:32px;height:32px}
+    .service h3{margin:4px 0 6px}
+
+    /* KONTAKT */
+    .contact-list{display:grid;gap:10px}
+    .contact-item{display:flex;gap:10px;align-items:center;color:var(--text)}
+
+    /* FORM */
+    form{display:grid;gap:14px}
+    .row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width:740px){.row{grid-template-columns:1fr}}
+    label{font-size:14px;color:var(--muted)}
+    input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(148,163,184,.2);background:#0b1224;color:var(--text)}
+    textarea{min-height:140px;resize:vertical}
+    .hint{font-size:12px;color:var(--muted)}
+    .form-status{margin-top:6px;font-size:14px}
+
+    /* GALERIA */
+    .gallery{display:grid;gap:10px;grid-template-columns:repeat(4,1fr)}
+    .gallery a{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(148,163,184,.15)}
+    .gallery img{aspect-ratio:4/3;object-fit:cover;transition:transform .3s ease}
+    .gallery a:hover img{transform:scale(1.04)}
+    @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+    /* MODAL */
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,.9);display:none;align-items:center;justify-content:center;padding:18px}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:min(1200px,95vw);max-height:85vh;border-radius:16px;border:1px solid rgba(148,163,184,.2)}
+    .lightbox .close{position:absolute;top:20px;right:20px;font-size:28px;background:transparent;border:0;color:var(--text);cursor:pointer}
+    .lightbox .prev,.lightbox .next{position:absolute;top:50%;transform:translateY(-50%);font-size:24px;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.2);padding:10px 14px;border-radius:12px;cursor:pointer}
+    .lightbox .prev{left:16px}
+    .lightbox .next{right:16px}
+
+    /* FOOTER */
+    footer{padding:24px 18px;border-top:1px solid rgba(148,163,184,.12);text-align:center;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <!-- Nawigacja -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="logo-wrap">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand">Pemo Strona</div>
+      </div>
+      <div class="nav__links">
+        <a href="#start">Start</a>
+        <a href="#o-nas">O nas</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#formularz">Formularz</a>
+        <a href="#galeria">Galeria</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO / Start -->
+  <section id="start" class="container">
+    <div class="hero card">
+      <div>
+        <span class="badge">Nowoczesne rozwiązania dla Twojego biznesu</span>
+        <h1>Pemo Strona Sp. z o.o.</h1>
+        <p>Specjalizujemy się w dostarczaniu usług dla małych i średnich przedsiębiorstw – od konsultingu, przez wdrożenia, po wsparcie powdrożeniowe.</p>
+        <div class="cta">
+          <a class="btn btn--primary" href="#formularz">Wyślij zapytanie</a>
+          <a class="btn" href="#uslugi">Zobacz usługi</a>
+        </div>
+      </div>
+      <div>
+        <!-- Proste, losowe logo zastępcze jako SVG -->
+        <svg viewBox="0 0 200 200" role="img" aria-label="Logo firmy" style="width:100%;filter:drop-shadow(0 20px 40px rgba(56,189,248,.25))">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="50%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="10" width="180" height="180" rx="36" fill="url(#g)"/>
+          <path d="M60 120 L100 50 L140 120 Z" fill="#0b1224" opacity=".9"/>
+          <circle cx="100" cy="130" r="14" fill="#0b1224" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- O nas -->
+  <section id="o-nas">
+    <div class="container grid">
+      <div class="card">
+        <h2>O nas</h2>
+        <p>Jesteśmy zespołem ekspertów z wieloletnim doświadczeniem. Łączymy technologię i strategię, aby pomóc firmom osiągać cele szybciej i skuteczniej. Działamy w całej Polsce, a nasze procesy są transparentne i nastawione na rezultaty.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <strong>10+ lat</strong>
+          <p>Na rynku usług B2B.</p>
+        </div>
+        <div class="card">
+          <strong>200+</strong>
+          <p>Zrealizowanych projektów.</p>
+        </div>
+        <div class="card">
+          <strong>98%</strong>
+          <p>Klientów poleca nasze usługi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usługi -->
+  <section id="uslugi">
+    <div class="container">
+      <div class="card">
+        <h2>Usługi</h2>
+        <p>Dobieramy zakres współpracy do potrzeb. Poniżej przykładowe obszary:</p>
+        <div class="grid grid-3" style="margin-top:16px">
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12h18M3 6h18M3 18h18" stroke-width="2" stroke-linecap="round"/></svg>
+            <div>
+              <h3>Audyt i konsulting</h3>
+              <p class="hint">Analiza procesów, rekomendacje i plan działania.</p>
+            </div>
+          </div>
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 6v12M6 12h12" stroke-width="2" stroke-linecap="round"/></svg>
+            <div>
+              <h3>Wdrożenia IT</h3>
+              <p class="hint">Systemy CRM/ERP, integracje, automatyzacje.</p>
+            </div>
+          </div>
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h10M4 17h7" stroke-width="2" stroke-linecap="round"/></svg>
+            <div>
+              <h3>Szkolenia</h3>
+              <p class="hint">Dla zespołów sprzedaży i wsparcia.</p>
+            </div>
+          </div>
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20s8-4 8-10a8 8 0 10-16 0c0 6 8 10 8 10z" stroke-width="2"/></svg>
+            <div>
+              <h3>Bezpieczeństwo</h3>
+              <p class="hint">Audyt, hardening, polityki i procedury.</p>
+            </div>
+          </div>
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l2-2 4 4 8-8 4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <h3>Serwis i wsparcie</h3>
+              <p class="hint">SLA dopasowane do krytyczności.</p>
+            </div>
+          </div>
+          <div class="service">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 5h8M3 12h18M3 19h8" stroke-width="2" stroke-linecap="round"/></svg>
+            <div>
+              <h3>Marketing i www</h3>
+              <p class="hint">Strony, kampanie, treści – full-service.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>Kontakt</h2>
+        <div class="contact-list" style="margin-top:10px">
+          <div class="contact-item">📍 ul. Radom 12, 00-000 Warszawa</div>
+          <div class="contact-item">📞 <a href="tel:+48111222333">+48 111 222 333</a></div>
+          <div class="contact-item">✉️ <a href="mailto:kontakt@firma.pl">kontakt@firma.pl</a></div>
+          <div class="contact-item">⏰ Pon–Pt 9:00–17:00</div>
+          <div class="contact-item">🌐 <a href="#">www.firma.pl</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Mapa dojazdu</h2>
+        <p class="hint">Kliknij, aby powiększyć mapę.</p>
+        <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(148,163,184,.12)">
+          <iframe title="Mapa dojazdu" width="100%" height="300" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=21.005%2C52.225%2C21.02%2C52.235&amp;layer=mapnik&amp;marker=52.230%2C21.012"></iframe>
+        </div>
+        <p class="hint" style="margin-top:8px"><a href="https://www.openstreetmap.org/?mlat=52.230&mlon=21.012#map=16/52.230/21.012" target="_blank" rel="noopener">Otwórz w nowej karcie</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formularz zgłoszeniowy -->
+  <section id="formularz">
+    <div class="container">
+      <div class="card">
+        <h2>Formularz zgłoszeniowy</h2>
+        <form id="leadForm" novalidate>
+          <div class="row">
+            <div>
+              <label for="name">Imię i nazwisko</label>
+              <input id="name" name="name" placeholder="Jan Kowalski" required />
+            </div>
+            <div>
+              <label for="email">E‑mail</label>
+              <input id="email" name="email" type="email" placeholder="jan@firma.pl" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="phone">Telefon <span class="hint">(opcjonalnie)</span></label>
+              <input id="phone" name="phone" type="tel" placeholder="+48 600 000 000" />
+            </div>
+            <div>
+              <label for="topic">Temat</label>
+              <select id="topic" name="topic" required>
+                <option value="">— Wybierz —</option>
+                <option>Audyt i konsulting</option>
+                <option>Wdrożenia IT</option>
+                <option>Szkolenia</option>
+                <option>Inne</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="msg">Wiadomość</label>
+            <textarea id="msg" name="msg" placeholder="Opisz krótko swoje potrzeby" required></textarea>
+          </div>
+          <div>
+            <label class="hint"><input id="rodo" type="checkbox" required /> Wyrażam zgodę na przetwarzanie moich danych w celu kontaktu.</label>
+          </div>
+          <div>
+            <button class="btn btn--primary" type="submit">Wyślij</button>
+            <span id="formStatus" class="form-status"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria">
+    <div class="container">
+      <div class="card">
+        <h2>Galeria</h2>
+        <div class="gallery" id="gallery">
+          <!-- Przykładowe zdjęcia z Unsplash (placeholdery) -->
+          <a href="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" data-title="Zespół w pracy"><img alt="Zespół w pracy" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61" data-title="Spotkanie"><img alt="Spotkanie" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1556761175-4b46a572b786" data-title="Biuro"><img alt="Biuro" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1519389950473-47ba0277781c" data-title="Technologia"><img alt="Technologia" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1523958203904-cdcb402031fd" data-title="Serwerownia"><img alt="Serwerownia" src="https://images.unsplash.com/photo-1523958203904-cdcb402031fd?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1487014679447-9f8336841d58" data-title="Kod"><img alt="Kod" src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2" data-title="UX"><img alt="UX" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&auto=format&fit=crop"/></a>
+          <a href="https://images.unsplash.com/photo-1556157382-97eda2d62296" data-title="Analiza"><img alt="Analiza" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&auto=format&fit=crop"/></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Pemo Strona — Wszelkie prawa zastrzeżone.
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" aria-label="Zamknij">✕</button>
+    <button class="prev" aria-label="Poprzednie">◀</button>
+    <img alt="Podgląd" />
+    <button class="next" aria-label="Następne">▶</button>
+  </div>
+
+  <script>
+    // Ustawienie roku w stopce
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Walidacja i obsługa formularza
+    const form = document.getElementById('leadForm');
+    const statusEl = document.getElementById('formStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      statusEl.textContent = '';
+
+      if(!form.checkValidity()){
+        statusEl.textContent = 'Uzupełnij wymagane pola.';
+        statusEl.style.color = 'var(--danger)';
+        return;
+      }
+
+      // Tu w prawdziwej wersji wyślesz dane fetch() do backendu / narzędzia (np. Formspree)
+      const data = Object.fromEntries(new FormData(form));
+      console.log('Form data:', data);
+
+      statusEl.textContent = 'Dziękujemy! Twoja wiadomość została wysłana (symulacja).';
+      statusEl.style.color = 'var(--ok)';
+      form.reset();
+    });
+
+    // Prosta galeria (lightbox)
+    const gallery = Array.from(document.querySelectorAll('#gallery a'));
+    const lightbox = document.getElementById('lightbox');
+    const img = lightbox.querySelector('img');
+    const btnPrev = lightbox.querySelector('.prev');
+    const btnNext = lightbox.querySelector('.next');
+    const btnClose = lightbox.querySelector('.close');
+    let current = 0;
+
+    function openLightbox(i){
+      current = i;
+      const href = gallery[current].getAttribute('href') + '?w=1600&auto=format&fit=crop';
+      img.src = href;
+      img.alt = gallery[current].dataset.title || 'Zdjęcie';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden','false');
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      img.src = '';
+    }
+    function next(){
+      openLightbox((current+1)%gallery.length);
+    }
+    function prev(){
+      openLightbox((current-1+gallery.length)%gallery.length);
+    }
+
+    gallery.forEach((a,i)=>{
+      a.addEventListener('click', e=>{ e.preventDefault(); openLightbox(i); });
+    });
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+    btnClose.addEventListener('click', closeLightbox);
+    window.addEventListener('keydown', (e)=>{
+      if(!lightbox.classList.contains('open')) return;
+      if(e.key==='Escape') closeLightbox();
+      if(e.key==='ArrowRight') next();
+      if(e.key==='ArrowLeft') prev();
+    });
+    lightbox.addEventListener('click', (e)=>{
+      if(e.target===lightbox) closeLightbox();
+    });
+  </script>
+</body>
+</html>
